@@ -156,7 +156,6 @@ class SkærmTæller:
                             for button in self.buttons_clicked:
                                 self.buttons_clicked[button] = False
                         elif self.nuvaerende_skaerm == 6:
-                            self.right_button_active = False # Deactivate the "Højre" button on screen 6
                             self.right_button_active = False  # Deactivate the "Højre" button on screen 6
                     elif event.button == pygame.BUTTON_LEFT and self.left_button.is_over(event.pos):
                         if self.nuvaerende_skaerm != 1:  # Make left button unclickable if not on screen 1
@@ -337,13 +336,9 @@ class SkærmTæller:
             if self.point_6 == 5:
                 self.right_button_active = True
             if self.right_button_active:
-                self.right_button.active = True
                 self.right_button.color = (0, 0, 0)  # Set the color of "Højre" button to black
                 self.right_button.draw()
 
-            self.right_button.active = True
-            self.right_button.color = (0, 0, 0)
-            self.right_button.draw()
 
         elif self.nuvaerende_skaerm == 7:
             self.skaerm.fill((0, 255, 255))
