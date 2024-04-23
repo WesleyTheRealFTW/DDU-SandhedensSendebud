@@ -362,6 +362,15 @@ class SkærmTæller:
             self.left_button.active = True
             self.left_button.color = (0, 0, 0)
             self.left_button.draw()
+        elif self.nuvaerende_skaerm == 9:
+            self.skaerm.fill((0, 255, 79))
+            # Draw screen number
+            skaermtal_tekst = self.font.render(f"Skærm {self.nuvaerende_skaerm}", True, (0, 0, 0))
+            self.skaerm.blit(skaermtal_tekst, (self.skaerm_bredde // 2 - skaermtal_tekst.get_width() // 2, 20))
+            # Draw the "Venstre" button on screen 8
+            self.left_button.active = True
+            self.left_button.color = (0, 0, 0)
+            self.left_button.draw()
 
         pygame.display.flip()
 
