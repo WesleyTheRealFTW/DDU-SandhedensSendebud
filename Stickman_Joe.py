@@ -312,7 +312,6 @@ class SkærmTæller:
             self.right_button.draw()
         elif self.nuvaerende_skaerm == 6:
             self.skaerm.fill((255, 0, 255))
-
             self.screen_14_button.draw()
             self.screen_15_button.draw()
             self.screen_16_button.draw()
