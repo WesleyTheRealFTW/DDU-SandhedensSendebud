@@ -77,6 +77,10 @@ class SkærmTæller:
         self.screen_5_button = Button(self.skaerm, (255, 0, 255), 300, 200, 50, 50, "Æble")
         self.screen_6_button = Button(self.skaerm, (255, 0, 255), 300, 100, 50, 50, "Mælk")
         self.screen_9_button = Button(self.skaerm, (255, 0, 255), 400, 200, 50, 50, "Banan")
+        self.screen_10_button = Button(self.skaerm, (255, 0, 255), 400, 300, 50, 50, "Sten")
+        self.screen_11_button = Button(self.skaerm, (255, 0, 255), 300, 400, 50, 50, "Gren")
+        self.screen_12_button = Button(self.skaerm, (255, 0, 255), 400, 100, 50, 50, "Stol")
+        self.screen_13_button = Button(self.skaerm, (255, 0, 255), 400, 400, 50, 50, "Cement")
         self.buttons_clicked = {self.screen_4_button: False,
                                 self.screen_5_button: False,
                                 self.screen_6_button: False,
@@ -121,6 +125,7 @@ class SkærmTæller:
         self.message9_printed = False
         self.message10_printed = False
         self.point_6 = 0
+        self.right_button_active = False
 
     def handle_events(self):
         for event in pygame.event.get():
@@ -152,11 +157,7 @@ class SkærmTæller:
                                 self.buttons_clicked[button] = False
                         elif self.nuvaerende_skaerm == 6:
                             self.right_button_active = False # Deactivate the "Højre" button on screen 6
-
-
-
-
-
+                            self.right_button_active = False  # Deactivate the "Højre" button on screen 6
                     elif event.button == pygame.BUTTON_LEFT and self.left_button.is_over(event.pos):
                         if self.nuvaerende_skaerm != 1:  # Make left button unclickable if not on screen 1
                             self.nuvaerende_skaerm -= 1
@@ -175,7 +176,6 @@ class SkærmTæller:
                            self.screen_5_button.is_over(event.pos) or
                            self.screen_6_button.is_over(event.pos) or
                            self.screen_9_button.is_over(event.pos))):
-                        # Check if buttons 4, 5, 6, and 9 have been clicked
                         for button in self.buttons_clicked:
                             if button.is_over(event.pos):
                                 self.buttons_clicked[button] = True
@@ -226,21 +226,14 @@ class SkærmTæller:
                             print("Kat og at")
                             self.message5_printed = True
                             self.point_6 += 1
-
-
-
-
     def draw_screen(self):
         if self.nuvaerende_skaerm == 0:
-            # Load the background image and scale it to fit the screen
             background_img = pygame.image.load("Startskrm_eksamensprojekt.png")
             background_img = pygame.transform.scale(background_img, (self.skaerm_bredde, self.skaerm_hoejde))
 
-            # Draw the background image on the screen
             self.skaerm.blit(background_img, (0, 0))
 
-            # Draw the start button on top of the background
-            self.start_button.active = True  # Activate start button
+            self.start_button.active = True
             self.start_button.draw()
         elif self.nuvaerende_skaerm >= 1 and self.nuvaerende_skaerm < 4:
             if self.nuvaerende_skaerm == 1:
@@ -291,7 +284,10 @@ class SkærmTæller:
             self.screen_5_button.draw()
             self.screen_6_button.draw()
             self.screen_9_button.draw()
-
+            self.screen_10_button.draw()
+            self.screen_11_button.draw()
+            self.screen_12_button.draw()
+            self.screen_13_button.draw()
             # Draw screen number
             skaermtal_tekst = self.font.render(f"Skærm {self.nuvaerende_skaerm}", True, (0, 0, 0))
             self.skaerm.blit(skaermtal_tekst, (self.skaerm_bredde // 2 - skaermtal_tekst.get_width() // 2, 20))
@@ -332,10 +328,6 @@ class SkærmTæller:
             self.screen_26_button.draw()
             self.screen_27_button.draw()
             self.screen_28_button.draw()
-
-
-
-            # Draw screen number
             skaermtal_tekst = self.font.render(f"Skærm {self.nuvaerende_skaerm}", True, (0, 0, 0))
             self.skaerm.blit(skaermtal_tekst, (self.skaerm_bredde // 2 - skaermtal_tekst.get_width() // 2, 20))
             # Draw the "Venstre" button on screen 6
@@ -350,7 +342,9 @@ class SkærmTæller:
                 self.right_button.color = (0, 0, 0)  # Set the color of "Højre" button to black
                 self.right_button.draw()
 
-
+            self.right_button.active = True
+            self.right_button.color = (0, 0, 0)
+            self.right_button.draw()
 
         elif self.nuvaerende_skaerm == 7:
             self.skaerm.fill((0, 255, 255))
@@ -365,7 +359,17 @@ class SkærmTæller:
             self.right_button.active = True
             self.right_button.color = (0, 0, 0)
             self.right_button.draw()
+        elif self.nuvaerende_skaerm == 8:
+            self.skaerm.fill((0, 255, 255))
+            # Draw screen number
+            skaermtal_tekst = self.font.render(f"Skærm {self.nuvaerende_skaerm}", True, (0, 0, 0))
+            self.skaerm.blit(skaermtal_tekst, (self.skaerm_bredde // 2 - skaermtal_tekst.get_width() // 2, 20))
+            # Draw the "Venstre" button on screen 8
+            self.left_button.active = True
+            self.left_button.color = (0, 0, 0)
+            self.left_button.draw()
 
+        pygame.display.flip()
 
     def run(self):
         while self.koerer:
@@ -373,10 +377,7 @@ class SkærmTæller:
             self.draw_screen()
             pygame.display.flip()
 
-        pygame.quit()
-        sys.exit()
-
-
 if __name__ == "__main__":
     app = SkærmTæller()
     app.run()
+    spil = SkærmTæller()
