@@ -52,6 +52,40 @@ class Key:
             return True
         return False
 
+class Textbox:
+    def __init__(self, x, y):
+        self.rect = pygame.Rect(x, y, 200, 30)
+        self.text = ""
+        self.active = False
+        self.color = (0, 0, 0)
+        self.visible = True
+
+    def handle_event(self, event):
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if self.rect.collidepoint(event.pos):
+                self.active = not self.active
+            else:
+                self.active = False
+            self.color = (255, 0, 0) if self.active else (0, 0, 0)
+
+        if event.type == pygame.KEYDOWN and self.active:
+            if event.key == pygame.K_RETURN:
+                print(self.text)
+                self.text = ""
+            elif event.key == pygame.K_BACKSPACE:
+                self.text = self.text[:-1]
+            else:
+                self.text += event.unicode
+
+    def draw(self, screen):
+        pygame.draw.rect(screen, self.color, self.rect, 2)
+        font = pygame.font.Font(None, 36)
+        text_surface = font.render(self.text, True, (0, 0, 0))
+        screen.blit(text_surface, (self.rect.x + 5, self.rect.y + 5))
+
+    def get_text(self):
+        return self.text
+
 
 class SkærmTæller:
     def __init__(self):
@@ -100,6 +134,10 @@ class SkærmTæller:
         self.screen_26_button = Button(self.skaerm, (0, 0, 255), 500, 300, 50, 50, "Fedt")
         self.screen_27_button = Button(self.skaerm, (0, 0, 255), 600, 400, 50, 50, "Kanin")
         self.screen_28_button = Button(self.skaerm, (0, 0, 255), 500, 200, 50, 50, "Måne")
+        self.textbox = Textbox(300, 200)
+        self.textbox1 = Textbox(300, 160)
+        self.textbox2 = Textbox(300, 120)
+        self.textbox3 = Textbox(300, 80)
 
 
 
@@ -225,6 +263,28 @@ class SkærmTæller:
                             print("Kat og at")
                             self.message5_printed = True
                             self.point_6 += 1
+
+            if self.textbox:
+                self.textbox.handle_event(event)
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                    if self.textbox.active:
+                        print("textbox input", self.textbox.get_text())
+            if self.textbox1:
+                self.textbox1.handle_event(event)
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                    if self.textbox1.active:
+                        print("textbox1 input", self.textbox1.get_text())
+            if self.textbox2:
+                self.textbox2.handle_event(event)
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                    if self.textbox2.active:
+                        print("textbox2 input", self.textbox2.get_text())
+            if self.textbox3:
+                self.textbox3.handle_event(event)
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                    if self.textbox3.active:
+                        print("textbox3 input", self.textbox3.get_text())
+
     def draw_screen(self):
         if self.nuvaerende_skaerm == 0:
             background_img = pygame.image.load("Startskrm_eksamensprojekt.png")
@@ -355,6 +415,10 @@ class SkærmTæller:
             self.right_button.draw()
         elif self.nuvaerende_skaerm == 8:
             self.skaerm.fill((0, 255, 255))
+            self.textbox.draw(self.skaerm)
+            self.textbox1.draw(self.skaerm)
+            self.textbox2.draw(self.skaerm)
+            self.textbox3.draw(self.skaerm)
             # Draw screen number
             skaermtal_tekst = self.font.render(f"Skærm {self.nuvaerende_skaerm}", True, (0, 0, 0))
             self.skaerm.blit(skaermtal_tekst, (self.skaerm_bredde // 2 - skaermtal_tekst.get_width() // 2, 20))
