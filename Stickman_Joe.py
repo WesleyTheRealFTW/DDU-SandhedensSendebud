@@ -136,6 +136,21 @@ class SkærmTæller:
         self.screen_26_button = Button(self.skaerm, (0, 0, 255), 500, 300, 50, 50, "Fedt")
         self.screen_27_button = Button(self.skaerm, (0, 0, 255), 600, 400, 50, 50, "Kanin")
         self.screen_28_button = Button(self.skaerm, (0, 0, 255), 500, 200, 50, 50, "Måne")
+        self.screen_29_button = Button(self.skaerm, (0, 0, 255), 600, 200, 50, 50, "Fandt")
+        self.screen_30_button = Button(self.skaerm, (0, 0, 255), 200, 500, 50, 50, "Blandt")
+        self.screen_31_button = Button(self.skaerm, (0, 0, 255), 500, 400, 50, 50, "Hund")
+        self.screen_32_button = Button(self.skaerm, (0, 0, 255), 200, 300, 50, 50, "Stund")
+        self.screen_33_button = Button(self.skaerm, (0, 0, 255), 500, 300, 50, 50, "Stråle")
+        self.screen_34_button = Button(self.skaerm, (0, 0, 255), 200, 100, 50, 50, "Åle")
+        self.screen_35_button = Button(self.skaerm, (0, 0, 255), 500, 500, 50, 50, "Ballade")
+        self.screen_36_button = Button(self.skaerm, (0, 0, 255), 200, 400, 50, 50, "Marmelade")
+        self.screen_37_button = Button(self.skaerm, (0, 0, 255), 500, 100, 50, 50, "Hest")
+        self.screen_38_button = Button(self.skaerm, (0, 0, 255), 200, 200, 50, 50, "Bedst")
+        self.screen_39_button = Button(self.skaerm, (0, 0, 255), 600, 300, 50, 50, "Østers")
+        self.screen_40_button = Button(self.skaerm, (0, 0, 255), 600, 100, 50, 50, "Bavian")
+        self.screen_41_button = Button(self.skaerm, (0, 0, 255), 600, 500, 50, 50, "Mand")
+        self.screen_42_button = Button(self.skaerm, (0, 0, 255), 600, 400, 50, 50, "Joe")
+        self.screen_43_button = Button(self.skaerm, (0, 0, 255), 500, 200, 50, 50, "Bord")
         self.textbox = Textbox(300, 200)
         self.textbox1 = Textbox(300, 160)
         self.textbox2 = Textbox(300, 120)
@@ -154,6 +169,16 @@ class SkærmTæller:
         self.button_21_clicked = False
         self.button_22_clicked = False
         self.button_23_clicked = False
+        self.button_29_clicked = False
+        self.button_30_clicked = False
+        self.button_31_clicked = False
+        self.button_32_clicked = False
+        self.button_33_clicked = False
+        self.button_34_clicked = False
+        self.button_35_clicked = False
+        self.button_36_clicked = False
+        self.button_37_clicked = False
+        self.button_38_clicked = False
         self.message_printed = False
         self.message2_printed = False
         self.message3_printed = False
@@ -165,6 +190,7 @@ class SkærmTæller:
         self.message9_printed = False
         self.message10_printed = False
         self.point_6 = 0
+        self.point_9 = 0
         self.correct_count = 0
         self.right_button_active = False
 
@@ -267,6 +293,49 @@ class SkærmTæller:
                             self.message5_printed = True
                             self.point_6 += 1
 
+                    elif self.nuvaerende_skaerm == 9:
+                        if event.type == pygame.MOUSEBUTTONDOWN:
+                            if self.screen_29_button.is_over(event.pos):
+                                self.button_29_clicked = True
+                            if self.screen_30_button.is_over(event.pos):
+                                self.button_30_clicked = True
+                            if self.screen_31_button.is_over(event.pos):
+                                self.button_31_clicked = True
+                            if self.screen_32_button.is_over(event.pos):
+                                self.button_32_clicked = True
+                            if self.screen_33_button.is_over(event.pos):
+                                self.button_33_clicked = True
+                            if self.screen_34_button.is_over(event.pos):
+                                self.button_34_clicked = True
+                            if self.screen_35_button.is_over(event.pos):
+                                self.button_35_clicked = True
+                            if self.screen_36_button.is_over(event.pos):
+                                self.button_36_clicked = True
+                            if self.screen_37_button.is_over(event.pos):
+                                self.button_37_clicked = True
+                            if self.screen_38_button.is_over(event.pos):
+                                self.button_38_clicked = True
+
+                        if self.button_29_clicked and self.button_30_clicked and not self.message6_printed:
+                            print("Fandt og blandt")
+                            self.message6_printed = True
+                            self.point_9 += 1
+                        if self.button_31_clicked and self.button_32_clicked and not self.message7_printed:
+                            print("Hund og stund")
+                            self.message7_printed = True
+                            self.point_9 += 1
+                        if self.button_33_clicked and self.button_34_clicked and not self.message8_printed:
+                            print("Stråle")
+                            self.message8_printed = True
+                            self.point_9 += 1
+                        if self.button_35_clicked and self.button_36_clicked and not self.message9_printed:
+                            print("Åle")
+                            self.message9_printed = True
+                            self.point_9 += 1
+                        if self.button_37_clicked and self.button_38_clicked and not self.message10_printed:
+                            print("Ballade og marmelade")
+                            self.message10_printed = True
+                            self.point_9 += 1
             # Handle textbox inputs
             self.textbox.handle_event(event)
             self.textbox1.handle_event(event)
@@ -295,6 +364,53 @@ class SkærmTæller:
                 self.textbox3.visible = False
                 self.textbox3.text = ""
                 self.correct_count += 1
+
+            elif self.nuvaerende_skaerm == 9:
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if self.screen_29_button.is_over(event.pos):
+                        self.button_29_clicked = True
+                    if self.screen_30_button.is_over(event.pos):
+                        self.button_30_clicked = True
+                    if self.screen_31_button.is_over(event.pos):
+                        self.button_31_clicked = True
+                    if self.screen_32_button.is_over(event.pos):
+                        self.button_32_clicked = True
+                    if self.screen_33_button.is_over(event.pos):
+                        self.button_33_clicked = True
+                    if self.screen_34_button.is_over(event.pos):
+                        self.button_34_clicked = True
+                    if self.screen_35_button.is_over(event.pos):
+                        self.button_35_clicked = True
+                    if self.screen_36_button.is_over(event.pos):
+                        self.button_36_clicked = True
+                    if self.screen_37_button.is_over(event.pos):
+                        self.button_37_clicked = True
+                    if self.screen_38_button.is_over(event.pos):
+                        self.button_38_clicked = True
+
+                if self.button_29_clicked and self.button_30_clicked and not self.message_printed:
+                    print("Fandt og blandt")
+                    self.message6_printed = True
+                    self.point_9 += 1
+                if self.button_31_clicked and self.button_32_clicked and not self.message2_printed:
+                    print("Hund og stund")
+                    self.message7_printed = True
+                    self.point_9 += 1
+                if self.button_33_clicked and self.button_34_clicked and not self.message3_printed:
+                    print("Stråle og åle")
+                    self.message8_printed = True
+                    self.point_9 += 1
+                if self.button_35_clicked and self.button_36_clicked and not self.message4_printed:
+                    print("Ballade og marmelade")
+                    self.message9_printed = True
+                    self.point_9 += 1
+                if self.button_37_clicked and self.button_38_clicked and not self.message5_printed:
+                    print("Hest og bedst")
+                    self.message10_printed = True
+                    self.point_9 += 1
+
+
+
 
 
     def draw_screen(self):
@@ -368,6 +484,8 @@ class SkærmTæller:
                 self.right_button.active = True
                 self.right_button.color = (0, 0, 0)  # Set the color of "Højre" button to black
                 self.right_button.draw()
+            else:
+                self.right_button.active = False
         elif self.nuvaerende_skaerm == 5:
             self.skaerm.fill((255, 255, 0))
             # Draw screen number
@@ -407,9 +525,11 @@ class SkærmTæller:
             # Draw the "Højre" button on screen 6
             if self.point_6 == 5:
                 self.right_button_active = True
-            if self.right_button_active:
-                self.right_button.color = (0, 0, 0)  # Set the color of "Højre" button to black
-                self.right_button.draw()
+                if self.right_button_active:
+                    self.right_button.color = (0, 0, 0)  # Set the color of "Højre" button to black
+                    self.right_button.draw()
+                else:
+                    self.right_button.active = False
 
 
         elif self.nuvaerende_skaerm == 7:
@@ -443,15 +563,43 @@ class SkærmTæller:
                 if self.right_button_active:
                     self.right_button.color = (0, 0, 0)
                     self.right_button.draw()
+                else:
+                    self.right_button.active = False
         elif self.nuvaerende_skaerm == 9:
             self.skaerm.fill((0, 255, 79))
             # Draw screen number
+            self.screen_29_button.draw()
+            self.screen_30_button.draw()
+            self.screen_31_button.draw()
+            self.screen_32_button.draw()
+            self.screen_33_button.draw()
+            self.screen_34_button.draw()
+            self.screen_35_button.draw()
+            self.screen_36_button.draw()
+            self.screen_37_button.draw()
+            self.screen_38_button.draw()
+            self.screen_39_button.draw()
+            self.screen_40_button.draw()
+            self.screen_41_button.draw()
+            self.screen_42_button.draw()
+            self.screen_43_button.draw()
             skaermtal_tekst = self.font.render(f"Skærm {self.nuvaerende_skaerm}", True, (0, 0, 0))
             self.skaerm.blit(skaermtal_tekst, (self.skaerm_bredde // 2 - skaermtal_tekst.get_width() // 2, 20))
             # Draw the "Venstre" button on screen 8
             self.left_button.active = True
             self.left_button.color = (0, 0, 0)
             self.left_button.draw()
+            if self.point_9 == 5:
+                self.right_button_active = True
+                if self.right_button_active:
+                    self.right_button.color = (0, 0, 0)
+                    self.right_button.draw()
+                else:
+                    self.right_button.active = False
+
+
+        if self.nuvaerende_skaerm == 10:
+            self.skaerm.fill((0, 0, 0))
 
         pygame.display.flip()
 
