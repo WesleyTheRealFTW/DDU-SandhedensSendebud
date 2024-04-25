@@ -61,27 +61,29 @@ class Textbox:
         self.visible = True
 
     def handle_event(self, event):
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if self.rect.collidepoint(event.pos):
-                self.active = not self.active
-            else:
-                self.active = False
-            self.color = (255, 0, 0) if self.active else (0, 0, 0)
+        if self.visible:
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if self.rect.collidepoint(event.pos):
+                    self.active = not self.active
+                else:
+                    self.active = False
+                self.color = (255, 0, 0) if self.active else (0, 0, 0)
 
-        if event.type == pygame.KEYDOWN and self.active:
-            if event.key == pygame.K_RETURN:
-                print(self.text)
-                self.text = ""
-            elif event.key == pygame.K_BACKSPACE:
-                self.text = self.text[:-1]
-            else:
-                self.text += event.unicode
+            if event.type == pygame.KEYDOWN and self.active:
+                if event.key == pygame.K_RETURN:
+                    print(self.text)
+                    self.text = ""
+                elif event.key == pygame.K_BACKSPACE:
+                    self.text = self.text[:-1]
+                else:
+                    self.text += event.unicode
 
     def draw(self, screen):
-        pygame.draw.rect(screen, self.color, self.rect, 2)
-        font = pygame.font.Font(None, 36)
-        text_surface = font.render(self.text, True, (0, 0, 0))
-        screen.blit(text_surface, (self.rect.x + 5, self.rect.y + 5))
+        if self.visible:
+            pygame.draw.rect(screen, self.color, self.rect, 2)
+            font = pygame.font.Font(None, 36)
+            text_surface = font.render(self.text, True, (0, 0, 0))
+            screen.blit(text_surface, (self.rect.x + 5, self.rect.y + 5))
 
     def get_text(self):
         return self.text
@@ -163,6 +165,7 @@ class SkærmTæller:
         self.message9_printed = False
         self.message10_printed = False
         self.point_6 = 0
+        self.correct_count = 0
         self.right_button_active = False
 
     def handle_events(self):
@@ -264,26 +267,35 @@ class SkærmTæller:
                             self.message5_printed = True
                             self.point_6 += 1
 
-            if self.textbox:
-                self.textbox.handle_event(event)
-                if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
-                    if self.textbox.active:
-                        print("textbox input", self.textbox.get_text())
-            if self.textbox1:
-                self.textbox1.handle_event(event)
-                if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
-                    if self.textbox1.active:
-                        print("textbox1 input", self.textbox1.get_text())
-            if self.textbox2:
-                self.textbox2.handle_event(event)
-                if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
-                    if self.textbox2.active:
-                        print("textbox2 input", self.textbox2.get_text())
-            if self.textbox3:
-                self.textbox3.handle_event(event)
-                if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
-                    if self.textbox3.active:
-                        print("textbox3 input", self.textbox3.get_text())
+            # Handle textbox inputs
+            self.textbox.handle_event(event)
+            self.textbox1.handle_event(event)
+            self.textbox2.handle_event(event)
+            self.textbox3.handle_event(event)
+
+            if self.textbox2.get_text().lower() == "æble":
+                print("Korrekt! Du indtastede 'Æble'. Yderligere input deaktiveret.")
+                self.textbox2.visible = False
+                self.textbox2.text = ""
+                self.correct_count += 1
+            if self.textbox.get_text().lower() == "banan":
+                print("Korrekt! Du indtastede 'Banan'. Yderligere input deaktiveret.")
+                self.textbox.visible = False
+                self.textbox.text = ""
+                self.correct_count += 1
+
+            if self.textbox1.get_text().lower() == "mælk":
+                print("Korrekt! Du indtastede 'Mælk'. Yderligere input deaktiveret.")
+                self.textbox1.visible = False
+                self.textbox1.text = ""
+                self.correct_count += 1
+
+            if self.textbox3.get_text().lower() == "æg":
+                print("Korrekt! Du indtastede 'Æg'. Yderligere input deaktiveret.")
+                self.textbox3.visible = False
+                self.textbox3.text = ""
+                self.correct_count += 1
+
 
     def draw_screen(self):
         if self.nuvaerende_skaerm == 0:
@@ -426,6 +438,11 @@ class SkærmTæller:
             self.left_button.active = True
             self.left_button.color = (0, 0, 0)
             self.left_button.draw()
+            if self.correct_count == 4:
+                self.right_button_active = True
+                if self.right_button_active:
+                    self.right_button.color = (0, 0, 0)
+                    self.right_button.draw()
         elif self.nuvaerende_skaerm == 9:
             self.skaerm.fill((0, 255, 79))
             # Draw screen number
