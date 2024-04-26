@@ -26,7 +26,7 @@ class Button:
             self.surface.blit(text_surface, text_rect)
 
     def is_over(self, pos):
-        if self.active:  # Check if the button is active
+        if self.active:
             if self.x < pos[0] < self.x + self.width and self.y < pos[1] < self.y + self.height:
                 return True
         return False
@@ -36,18 +36,18 @@ class Key:
     def __init__(self, surface, image_path, x, y):
         self.surface = surface
         self.image = pygame.image.load(image_path)
-        self.image = pygame.transform.scale(self.image, (50, 50))  # Resize the image if necessary
+        self.image = pygame.transform.scale(self.image, (50, 50))
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
         self.clicked = False
 
     def draw_key(self):
-        if not self.clicked:  # Only draw if the key hasn't been clicked
+        if not self.clicked:
             self.surface.blit(self.image, self.rect)
 
     def is_clicked(self, pos):
-        if not self.clicked and self.rect.collidepoint(pos):  # Check if the key hasn't been clicked and is clicked now
+        if not self.clicked and self.rect.collidepoint(pos):
             self.clicked = True
             return True
         return False
@@ -92,6 +92,9 @@ class Textbox:
 class SkærmTæller:
     def __init__(self):
         pygame.init()
+        pygame.mixer.init()
+        pygame.mixer.music.load("Animal Crossing.mp3")
+        pygame.mixer.music.play(-1)
         self.skaerm_bredde = 800
         self.skaerm_hoejde = 600
         self.skaerm = pygame.display.set_mode((self.skaerm_bredde, self.skaerm_hoejde))
@@ -100,15 +103,19 @@ class SkærmTæller:
         self.koerer = True
         self.nuvaerende_skaerm = 0
         self.skaerm_stack = []
+
         self.start_button = Button(self.skaerm, (0, 0, 0), 400, 275, 200, 50, "Start")
         self.left_button = Button(self.skaerm, (0, 0, 0), 50, 200, 50, 200, "Venstre")
         self.right_button = Button(self.skaerm, (0, 0, 0), 700, 200, 50, 200, "Højre")
-        self.key1 = Key(self.skaerm, "KEy_2.png", 100, 100)  # First key
-        self.key2 = Key(self.skaerm, "KEy_1.png", 600, 100)  # Second key
-        self.key3 = Key(self.skaerm, "KEy_2.png", 300, 100)  # Third key
+
+        self.key1 = Key(self.skaerm, "KEy_2.png", 100, 100)
+        self.key2 = Key(self.skaerm, "KEy_1.png", 600, 100)
+        self.key3 = Key(self.skaerm, "KEy_2.png", 300, 100)
+
         self.key1_clicked = False
         self.key2_clicked = False
         self.key3_clicked = False
+
         self.screen_4_button = Button(self.skaerm, (255, 0, 255), 300, 300, 50, 50, "Æg")
         self.screen_5_button = Button(self.skaerm, (255, 0, 255), 300, 200, 50, 50, "Æble")
         self.screen_6_button = Button(self.skaerm, (255, 0, 255), 300, 100, 50, 50, "Mælk")
@@ -117,10 +124,12 @@ class SkærmTæller:
         self.screen_11_button = Button(self.skaerm, (255, 0, 255), 300, 400, 50, 50, "Gren")
         self.screen_12_button = Button(self.skaerm, (255, 0, 255), 400, 100, 50, 50, "Stol")
         self.screen_13_button = Button(self.skaerm, (255, 0, 255), 400, 400, 50, 50, "Cement")
+
         self.buttons_clicked = {self.screen_4_button: False,
                                 self.screen_5_button: False,
                                 self.screen_6_button: False,
                                 self.screen_9_button: False}
+
         self.screen_14_button = Button(self.skaerm, (0, 0, 255), 600, 100, 50, 50, "Bold")
         self.screen_15_button = Button(self.skaerm, (0, 0, 255), 200, 500, 50, 50, "Hold")
         self.screen_16_button = Button(self.skaerm, (0, 0, 255), 500, 400, 50, 50, "Hop")
@@ -151,6 +160,7 @@ class SkærmTæller:
         self.screen_41_button = Button(self.skaerm, (0, 0, 255), 600, 500, 50, 50, "Mand")
         self.screen_42_button = Button(self.skaerm, (0, 0, 255), 600, 400, 50, 50, "Joe")
         self.screen_43_button = Button(self.skaerm, (0, 0, 255), 500, 200, 50, 50, "Bord")
+
         self.textbox = Textbox(300, 200)
         self.textbox1 = Textbox(300, 160)
         self.textbox2 = Textbox(300, 120)
@@ -159,6 +169,7 @@ class SkærmTæller:
 
 
         self.right_button_active = False
+
         self.button_14_clicked = False
         self.button_15_clicked = False
         self.button_16_clicked = False
@@ -179,6 +190,7 @@ class SkærmTæller:
         self.button_36_clicked = False
         self.button_37_clicked = False
         self.button_38_clicked = False
+
         self.message_printed = False
         self.message2_printed = False
         self.message3_printed = False
@@ -189,6 +201,7 @@ class SkærmTæller:
         self.message8_printed = False
         self.message9_printed = False
         self.message10_printed = False
+
         self.point_6 = 0
         self.point_9 = 0
         self.correct_count = 0
@@ -212,31 +225,37 @@ class SkærmTæller:
                         self.skaerm_stack.append(self.nuvaerende_skaerm - 1)
                         if self.nuvaerende_skaerm == 2:
                             self.skaerm.fill((random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)))
-                            self.key1_clicked = False  # Reset key1 click flag when transitioning to screen 2
+                            self.key1_clicked = False
+
                         elif self.nuvaerende_skaerm == 3:
                             self.skaerm.fill((random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)))
-                            self.key2_clicked = False  # Reset key2 click flag when transitioning to screen 3
+                            self.key2_clicked = False
+
                         elif self.nuvaerende_skaerm == 4:
                             self.skaerm.fill((random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)))
-                            self.key3_clicked = False  # Reset key3 click flag when transitioning to screen 4
-                            # Reset buttons clicked state for screen 4 buttons
+                            self.key3_clicked = False
+
                             for button in self.buttons_clicked:
                                 self.buttons_clicked[button] = False
                         elif self.nuvaerende_skaerm == 6:
-                            self.right_button_active = False  # Deactivate the "Højre" button on screen 6
+                            self.right_button_active = False
                     elif event.button == pygame.BUTTON_LEFT and self.left_button.is_over(event.pos):
-                        if self.nuvaerende_skaerm != 1:  # Make left button unclickable if not on screen 1
+                        if self.nuvaerende_skaerm != 1:
                             self.nuvaerende_skaerm -= 1
                     elif event.button == pygame.BUTTON_LEFT and self.key1.is_clicked(event.pos):
                         self.key1_clicked = True
                         print("The first key has been clicked")
+
                     elif event.button == pygame.BUTTON_LEFT and self.key2.is_clicked(event.pos):
                         self.key2_clicked = True
                         print("The second key has been clicked")
+
                     elif event.button == pygame.BUTTON_LEFT and self.key3.is_clicked(event.pos):
                         self.key3_clicked = True
                         print("The third key has been clicked")
+
                     elif (event.button == pygame.BUTTON_LEFT and
+
                           self.nuvaerende_skaerm == 4 and
                           (self.screen_4_button.is_over(event.pos) or
                            self.screen_5_button.is_over(event.pos) or
@@ -247,7 +266,8 @@ class SkærmTæller:
                                 self.buttons_clicked[button] = True
                         if all(self.buttons_clicked.values()):
                             print("All buttons on screen 4 have been clicked")
-                            self.right_button_active = True  # Activate the "Højre" button
+                            self.right_button_active = True
+
                     elif self.nuvaerende_skaerm == 6:
                         if event.type == pygame.MOUSEBUTTONDOWN:
                             if self.screen_14_button.is_over(event.pos):
@@ -271,7 +291,6 @@ class SkærmTæller:
                             if self.screen_23_button.is_over(event.pos):
                                 self.button_23_clicked = True
 
-                        # Check if both buttons 14 and 15 have been clicked
                         if self.button_14_clicked and self.button_15_clicked and not self.message_printed:
                             print("Bold og hold")
                             self.message_printed = True
@@ -436,17 +455,14 @@ class SkærmTæller:
                 if not self.key3_clicked:
                     self.key3.draw_key()
 
-            # Draw screen number
             skaermtal_tekst = self.font.render(f"Skærm {self.nuvaerende_skaerm}", True, (0, 0, 0))
             self.skaerm.blit(skaermtal_tekst, (self.skaerm_bredde // 2 - skaermtal_tekst.get_width() // 2, 20))
 
-            # Only draw the left button if not on screen 1
             if self.nuvaerende_skaerm != 1:
                 self.left_button.active = True
-                self.left_button.color = (0, 0, 0)  # Update the color to make it visible
+                self.left_button.color = (0, 0, 0)
                 self.left_button.draw()
 
-            # Check if the corresponding key is clicked to activate the right button
             if self.nuvaerende_skaerm == 1 and self.key1.clicked:
                 self.right_button.active = True
                 self.right_button.draw()
@@ -461,12 +477,9 @@ class SkærmTæller:
 
         elif self.nuvaerende_skaerm == 4:
             self.skaerm.fill((0, 0, 255))
-            # Draw the "Venstre" button on screen 4
             self.left_button.active = True
             self.left_button.color = (0, 0, 0)
             self.left_button.draw()
-
-            # Draw screen 4 buttons
             self.screen_4_button.draw()
             self.screen_5_button.draw()
             self.screen_6_button.draw()
@@ -475,14 +488,35 @@ class SkærmTæller:
             self.screen_11_button.draw()
             self.screen_12_button.draw()
             self.screen_13_button.draw()
-            # Draw screen number
+
+            for event in pygame.event.get():
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if self.screen_10_button.is_over(event.pos):
+                        print("Click Sten")
+                    elif self.screen_11_button.is_over(event.pos):
+                        print("Click Gren")
+                    elif self.screen_12_button.is_over(event.pos):
+                        print("Click Stol")
+                    elif self.screen_13_button.is_over(event.pos):
+                        print("Click Cement")
+                    elif (self.nuvaerende_skaerm == 4 and
+                          (self.screen_4_button.is_over(event.pos) or
+                           self.screen_5_button.is_over(event.pos) or
+                           self.screen_6_button.is_over(event.pos) or
+                           self.screen_9_button.is_over(event.pos))):
+                        for button in self.buttons_clicked:
+                            if button.is_over(event.pos):
+                                self.buttons_clicked[button] = True
+                        if all(self.buttons_clicked.values()):
+                            print("All buttons on screen 4 have been clicked")
+                            self.right_button_active = True
+
             skaermtal_tekst = self.font.render(f"Skærm {self.nuvaerende_skaerm}", True, (0, 0, 0))
             self.skaerm.blit(skaermtal_tekst, (self.skaerm_bredde // 2 - skaermtal_tekst.get_width() // 2, 20))
 
-            # Draw the "Højre" button only if all buttons on screen 4 have been clicked
             if self.right_button_active:
                 self.right_button.active = True
-                self.right_button.color = (0, 0, 0)  # Set the color of "Højre" button to black
+                self.right_button.color = (0, 0, 0)
                 self.right_button.draw()
             else:
                 self.right_button.active = False
@@ -516,20 +550,20 @@ class SkærmTæller:
             self.screen_26_button.draw()
             self.screen_27_button.draw()
             self.screen_28_button.draw()
+
             skaermtal_tekst = self.font.render(f"Skærm {self.nuvaerende_skaerm}", True, (0, 0, 0))
             self.skaerm.blit(skaermtal_tekst, (self.skaerm_bredde // 2 - skaermtal_tekst.get_width() // 2, 20))
-            # Draw the "Venstre" button on screen 6
+
             self.left_button.active = True
             self.left_button.color = (0, 0, 0)
             self.left_button.draw()
-            # Draw the "Højre" button on screen 6
+
             if self.point_6 == 5:
-                self.right_button_active = True
-                if self.right_button_active:
-                    self.right_button.color = (0, 0, 0)  # Set the color of "Højre" button to black
-                    self.right_button.draw()
-                else:
-                    self.right_button.active = False
+                self.right_button.active = True
+                self.right_button.color = (0, 0, 0)
+                self.right_button.draw()
+            else:
+                self.right_button.active = False
 
 
         elif self.nuvaerende_skaerm == 7:
@@ -551,23 +585,21 @@ class SkærmTæller:
             self.textbox1.draw(self.skaerm)
             self.textbox2.draw(self.skaerm)
             self.textbox3.draw(self.skaerm)
-            # Draw screen number
             skaermtal_tekst = self.font.render(f"Skærm {self.nuvaerende_skaerm}", True, (0, 0, 0))
             self.skaerm.blit(skaermtal_tekst, (self.skaerm_bredde // 2 - skaermtal_tekst.get_width() // 2, 20))
-            # Draw the "Venstre" button on screen 8
             self.left_button.active = True
             self.left_button.color = (0, 0, 0)
             self.left_button.draw()
+
             if self.correct_count == 4:
-                self.right_button_active = True
-                if self.right_button_active:
-                    self.right_button.color = (0, 0, 0)
-                    self.right_button.draw()
-                else:
-                    self.right_button.active = False
+                self.right_button.active = True
+                self.right_button.color = (0, 0, 0)
+                self.right_button.draw()
+            else:
+                self.right_button.active = False
+
         elif self.nuvaerende_skaerm == 9:
             self.skaerm.fill((0, 255, 79))
-            # Draw screen number
             self.screen_29_button.draw()
             self.screen_30_button.draw()
             self.screen_31_button.draw()
@@ -583,20 +615,21 @@ class SkærmTæller:
             self.screen_41_button.draw()
             self.screen_42_button.draw()
             self.screen_43_button.draw()
+
             skaermtal_tekst = self.font.render(f"Skærm {self.nuvaerende_skaerm}", True, (0, 0, 0))
             self.skaerm.blit(skaermtal_tekst, (self.skaerm_bredde // 2 - skaermtal_tekst.get_width() // 2, 20))
-            # Draw the "Venstre" button on screen 8
+
+
             self.left_button.active = True
             self.left_button.color = (0, 0, 0)
             self.left_button.draw()
-            if self.point_9 == 5:
-                self.right_button_active = True
-                if self.right_button_active:
-                    self.right_button.color = (0, 0, 0)
-                    self.right_button.draw()
-                else:
-                    self.right_button.active = False
 
+            if self.point_9 == 5:
+                self.right_button.active = True
+                self.right_button.color = (0, 0, 0)
+                self.right_button.draw()
+            else:
+                self.right_button.active = False
 
         if self.nuvaerende_skaerm == 10:
             self.skaerm.fill((0, 0, 0))
