@@ -93,7 +93,7 @@ class SkærmTæller:
     def __init__(self):
         pygame.init()
         pygame.mixer.init()
-        pygame.mixer.music.load("Musik.mp3")
+        pygame.mixer.music.load("musik.mp3")
         pygame.mixer.music.play(-1)
         self.skaerm_bredde = 800
         self.skaerm_hoejde = 600
