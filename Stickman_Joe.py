@@ -272,26 +272,31 @@ class SkærmTæller:
                                 self.button_23_clicked = True
 
                         # Check if both buttons 14 and 15 have been clicked
-                        if self.button_14_clicked and self.button_15_clicked and not self.message_printed:
-                            print("Bold og hold")
-                            self.message_printed = True
-                            self.point_6 += 1
-                        if self.button_16_clicked and self.button_17_clicked and not self.message2_printed:
-                            print("Hop og op")
-                            self.message2_printed = True
-                            self.point_6 += 1
-                        if self.button_18_clicked and self.button_19_clicked and not self.message3_printed:
-                            print("Skål og mål")
-                            self.message3_printed = True
-                            self.point_6 += 1
-                        if self.button_20_clicked and self.button_21_clicked and not self.message4_printed:
-                            print("Trommer og sommer")
-                            self.message4_printed = True
-                            self.point_6 += 1
-                        if self.button_22_clicked and self.button_23_clicked and not self.message5_printed:
-                            print("Kat og at")
-                            self.message5_printed = True
-                            self.point_6 += 1
+                            if self.button_14_clicked and self.button_15_clicked and not self.message_printed:
+                                print("Bold og hold")
+                                self.message_printed = True
+                                self.point_6 += 1
+                            if self.button_16_clicked and self.button_17_clicked and not self.message2_printed:
+                                print("Hop og op")
+                                self.message2_printed = True
+                                self.point_6 += 1
+                            if self.button_18_clicked and self.button_19_clicked and not self.message3_printed:
+                                print("Skål og mål")
+                                self.message3_printed = True
+                                self.point_6 += 1
+                            if self.button_20_clicked and self.button_21_clicked and not self.message4_printed:
+                                print("Trommer og sommer")
+                                self.message4_printed = True
+                                self.point_6 += 1
+                            if self.button_22_clicked and self.button_23_clicked and not self.message5_printed:
+                                print("Kat og at")
+                                self.message5_printed = True
+                                self.point_6 += 1
+
+                            if self.point_6 == 5:
+                                self.right_button_active = True
+
+
 
                     elif self.nuvaerende_skaerm == 9:
                         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -316,98 +321,60 @@ class SkærmTæller:
                             if self.screen_38_button.is_over(event.pos):
                                 self.button_38_clicked = True
 
-                        if self.button_29_clicked and self.button_30_clicked and not self.message6_printed:
-                            print("Fandt og blandt")
-                            self.message6_printed = True
-                            self.point_9 += 1
-                        if self.button_31_clicked and self.button_32_clicked and not self.message7_printed:
-                            print("Hund og stund")
-                            self.message7_printed = True
-                            self.point_9 += 1
-                        if self.button_33_clicked and self.button_34_clicked and not self.message8_printed:
-                            print("Stråle")
-                            self.message8_printed = True
-                            self.point_9 += 1
-                        if self.button_35_clicked and self.button_36_clicked and not self.message9_printed:
-                            print("Åle")
-                            self.message9_printed = True
-                            self.point_9 += 1
-                        if self.button_37_clicked and self.button_38_clicked and not self.message10_printed:
-                            print("Ballade og marmelade")
-                            self.message10_printed = True
-                            self.point_9 += 1
-            # Handle textbox inputs
-            self.textbox.handle_event(event)
-            self.textbox1.handle_event(event)
-            self.textbox2.handle_event(event)
-            self.textbox3.handle_event(event)
+                            if self.button_29_clicked and self.button_30_clicked and not self.message6_printed:
+                                print("Fandt og blandt")
+                                self.message6_printed = True
+                                self.point_9 += 1
+                            if self.button_31_clicked and self.button_32_clicked and not self.message7_printed:
+                                print("Hund og stund")
+                                self.message7_printed = True
+                                self.point_9 += 1
+                            if self.button_33_clicked and self.button_34_clicked and not self.message8_printed:
+                                print("Stråle og åle")
+                                self.message8_printed = True
+                                self.point_9 += 1
+                            if self.button_35_clicked and self.button_36_clicked and not self.message9_printed:
+                                print("Ballade og marmelade")
+                                self.message9_printed = True
+                                self.point_9 += 1
+                            if self.button_37_clicked and self.button_38_clicked and not self.message10_printed:
+                                print("Hest og bedst")
+                                self.message10_printed = True
+                                self.point_9 += 1
 
-            if self.textbox2.get_text().lower() == "æble":
-                print("Korrekt! Du indtastede 'Æble'. Yderligere input deaktiveret.")
-                self.textbox2.visible = False
-                self.textbox2.text = ""
-                self.correct_count += 1
-            if self.textbox.get_text().lower() == "banan":
-                print("Korrekt! Du indtastede 'Banan'. Yderligere input deaktiveret.")
-                self.textbox.visible = False
-                self.textbox.text = ""
-                self.correct_count += 1
+                            if self.point_9 == 5:
+                                self.right_button_active = True
 
-            if self.textbox1.get_text().lower() == "mælk":
-                print("Korrekt! Du indtastede 'Mælk'. Yderligere input deaktiveret.")
-                self.textbox1.visible = False
-                self.textbox1.text = ""
-                self.correct_count += 1
+                    elif self.nuvaerende_skaerm == 8:
+                        if event.type == pygame.MOUSEBUTTONDOWN:
+                            self.textbox.handle_event(event)
+                            self.textbox1.handle_event(event)
+                            self.textbox2.handle_event(event)
+                            self.textbox3.handle_event(event)
 
-            if self.textbox3.get_text().lower() == "æg":
-                print("Korrekt! Du indtastede 'Æg'. Yderligere input deaktiveret.")
-                self.textbox3.visible = False
-                self.textbox3.text = ""
-                self.correct_count += 1
+                            if self.textbox2.get_text().lower() == "æble":
+                                print("Korrekt! Du indtastede 'Æble'. Yderligere input deaktiveret.")
+                                self.textbox2.visible = False
+                                self.textbox2.text = ""
+                                self.correct_count += 1
+                            if self.textbox.get_text().lower() == "banan":
+                                print("Korrekt! Du indtastede 'Banan'. Yderligere input deaktiveret.")
+                                self.textbox.visible = False
+                                self.textbox.text = ""
+                                self.correct_count += 1
 
-            elif self.nuvaerende_skaerm == 9:
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    if self.screen_29_button.is_over(event.pos):
-                        self.button_29_clicked = True
-                    if self.screen_30_button.is_over(event.pos):
-                        self.button_30_clicked = True
-                    if self.screen_31_button.is_over(event.pos):
-                        self.button_31_clicked = True
-                    if self.screen_32_button.is_over(event.pos):
-                        self.button_32_clicked = True
-                    if self.screen_33_button.is_over(event.pos):
-                        self.button_33_clicked = True
-                    if self.screen_34_button.is_over(event.pos):
-                        self.button_34_clicked = True
-                    if self.screen_35_button.is_over(event.pos):
-                        self.button_35_clicked = True
-                    if self.screen_36_button.is_over(event.pos):
-                        self.button_36_clicked = True
-                    if self.screen_37_button.is_over(event.pos):
-                        self.button_37_clicked = True
-                    if self.screen_38_button.is_over(event.pos):
-                        self.button_38_clicked = True
+                            if self.textbox1.get_text().lower() == "mælk":
+                                print("Korrekt! Du indtastede 'Mælk'. Yderligere input deaktiveret.")
+                                self.textbox1.visible = False
+                                self.textbox1.text = ""
+                                self.correct_count += 1
 
-                if self.button_29_clicked and self.button_30_clicked and not self.message_printed:
-                    print("Fandt og blandt")
-                    self.message6_printed = True
-                    self.point_9 += 1
-                if self.button_31_clicked and self.button_32_clicked and not self.message2_printed:
-                    print("Hund og stund")
-                    self.message7_printed = True
-                    self.point_9 += 1
-                if self.button_33_clicked and self.button_34_clicked and not self.message3_printed:
-                    print("Stråle og åle")
-                    self.message8_printed = True
-                    self.point_9 += 1
-                if self.button_35_clicked and self.button_36_clicked and not self.message4_printed:
-                    print("Ballade og marmelade")
-                    self.message9_printed = True
-                    self.point_9 += 1
-                if self.button_37_clicked and self.button_38_clicked and not self.message5_printed:
-                    print("Hest og bedst")
-                    self.message10_printed = True
-                    self.point_9 += 1
+                            if self.textbox3.get_text().lower() == "æg":
+                                print("Korrekt! Du indtastede 'Æg'. Yderligere input deaktiveret.")
+                                self.textbox3.visible = False
+                                self.textbox3.text = ""
+                                self.correct_count += 1
+
 
 
 
@@ -523,13 +490,12 @@ class SkærmTæller:
             self.left_button.color = (0, 0, 0)
             self.left_button.draw()
             # Draw the "Højre" button on screen 6
-            if self.point_6 == 5:
-                self.right_button_active = True
-                if self.right_button_active:
-                    self.right_button.color = (0, 0, 0)  # Set the color of "Højre" button to black
-                    self.right_button.draw()
-                else:
-                    self.right_button.active = False
+            if self.right_button_active:
+                self.right_button.active = True
+                self.right_button.color = (0, 0, 0)  # Set the color of "Højre" button to black
+                self.right_button.draw()
+            else:
+                self.right_button.active = False
 
 
         elif self.nuvaerende_skaerm == 7:
@@ -561,11 +527,14 @@ class SkærmTæller:
             if self.correct_count == 4:
                 self.right_button_active = True
                 if self.right_button_active:
+                    #self.right_button_active = True
                     self.right_button.color = (0, 0, 0)
                     self.right_button.draw()
                 else:
                     self.right_button.active = False
+
         elif self.nuvaerende_skaerm == 9:
+            self.right_button_active = False
             self.skaerm.fill((0, 255, 79))
             # Draw screen number
             self.screen_29_button.draw()
@@ -592,6 +561,7 @@ class SkærmTæller:
             if self.point_9 == 5:
                 self.right_button_active = True
                 if self.right_button_active:
+                    self.right_button_active = True
                     self.right_button.color = (0, 0, 0)
                     self.right_button.draw()
                 else:
