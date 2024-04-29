@@ -170,26 +170,31 @@ class SkærmTæller:
 
         self.right_button_active = False
 
-        self.button_14_clicked = False
-        self.button_15_clicked = False
-        self.button_16_clicked = False
-        self.button_17_clicked = False
-        self.button_18_clicked = False
-        self.button_19_clicked = False
-        self.button_20_clicked = False
-        self.button_21_clicked = False
-        self.button_22_clicked = False
-        self.button_23_clicked = False
-        self.button_29_clicked = False
-        self.button_30_clicked = False
-        self.button_31_clicked = False
-        self.button_32_clicked = False
-        self.button_33_clicked = False
-        self.button_34_clicked = False
-        self.button_35_clicked = False
-        self.button_36_clicked = False
-        self.button_37_clicked = False
-        self.button_38_clicked = False
+        button_names = [
+            "button_14_clicked",
+            "button_15_clicked",
+            "button_16_clicked",
+            "button_17_clicked",
+            "button_18_clicked",
+            "button_19_clicked",
+            "button_20_clicked",
+            "button_21_clicked",
+            "button_22_clicked",
+            "button_23_clicked",
+            "button_29_clicked",
+            "button_30_clicked",
+            "button_31_clicked",
+            "button_32_clicked",
+            "button_33_clicked",
+            "button_34_clicked",
+            "button_35_clicked",
+            "button_36_clicked",
+            "button_37_clicked",
+            "button_38_clicked"
+        ]
+
+        for button_name in button_names:
+            setattr(self, button_name, False)
 
         self.message_printed = False
         self.message2_printed = False
@@ -269,27 +274,22 @@ class SkærmTæller:
                             self.right_button_active = True
 
                     elif self.nuvaerende_skaerm == 6:
-                        if event.type == pygame.MOUSEBUTTONDOWN:
-                            if self.screen_14_button.is_over(event.pos):
-                                self.button_14_clicked = True
-                            if self.screen_15_button.is_over(event.pos):
-                                self.button_15_clicked = True
-                            if self.screen_16_button.is_over(event.pos):
-                                self.button_16_clicked = True
-                            if self.screen_17_button.is_over(event.pos):
-                                self.button_17_clicked = True
-                            if self.screen_18_button.is_over(event.pos):
-                                self.button_18_clicked = True
-                            if self.screen_19_button.is_over(event.pos):
-                                self.button_19_clicked = True
-                            if self.screen_20_button.is_over(event.pos):
-                                self.button_20_clicked = True
-                            if self.screen_21_button.is_over(event.pos):
-                                self.button_21_clicked = True
-                            if self.screen_22_button.is_over(event.pos):
-                                self.button_22_clicked = True
-                            if self.screen_23_button.is_over(event.pos):
-                                self.button_23_clicked = True
+                        button_map = {
+                            "button_14_clicked": self.screen_14_button,
+                            "button_15_clicked": self.screen_15_button,
+                            "button_16_clicked": self.screen_16_button,
+                            "button_17_clicked": self.screen_17_button,
+                            "button_18_clicked": self.screen_18_button,
+                            "button_19_clicked": self.screen_19_button,
+                            "button_20_clicked": self.screen_20_button,
+                            "button_21_clicked": self.screen_21_button,
+                            "button_22_clicked": self.screen_22_button,
+                            "button_23_clicked": self.screen_23_button
+                        }
+
+                        for button_name, screen_button in button_map.items():
+                            if screen_button.is_over(event.pos):
+                                setattr(self, button_name, True)
 
                         if self.button_14_clicked and self.button_15_clicked and not self.message_printed:
                             print("Bold og hold")
@@ -579,6 +579,7 @@ class SkærmTæller:
             self.right_button.active = True
             self.right_button.color = (0, 0, 0)
             self.right_button.draw()
+
         elif self.nuvaerende_skaerm == 8:
             self.skaerm.fill((0, 255, 255))
             self.textbox.draw(self.skaerm)
